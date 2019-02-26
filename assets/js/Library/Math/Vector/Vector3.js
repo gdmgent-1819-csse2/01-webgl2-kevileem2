@@ -1,3 +1,6 @@
+//imports 
+import Matrix3 from '../Matrix/Matrix3.js'
+
 class Vector3
 {
   /**
@@ -108,6 +111,54 @@ class Vector3
     const newY = (this.z * v.x) - (this.x * v.z)
     const newZ = (this.x * v.y) - (this.y * v.x)
     return new Vector3( newX, newY, newZ )
+  }
+
+  /**
+   * Rotate vector around x-as
+   * @param {Number} α - Anticlockwise angle (degrees)
+   */
+  rotX(α) {
+    const m = new Matrix3([
+      [this.x, 0, 0],
+      [this.y, 0, 0],
+      [this.z, 0, 0]
+    ])
+    m.rotX(α)
+    this.x = m.items[0][0]
+    this.y = m.items[1][0]
+    this.z = m.items[2][0]
+  }
+
+  /**
+   * Rotate vector around y-as
+   * @param {Number} α - Anticlockwise angle (degrees)
+   */
+  rotY(α) {
+    const m = new Matrix3([
+      [this.x, 0, 0],
+      [this.y, 0, 0],
+      [this.z, 0, 0]
+    ])
+    m.rotY(α)
+    this.x = m.items[0][0]
+    this.y = m.items[1][0]
+    this.z = m.items[2][0]
+  }
+
+  /**
+   * Rotate vector around z-as
+   * @param {Number} α - Anticlockwise angle (degrees)
+   */
+  rotZ(α) {
+    const m = new Matrix3([
+      [this.x, 0, 0],
+      [this.y, 0, 0],
+      [this.z, 0, 0]
+    ])
+    m.rotZ(α)
+    this.x = m.items[0][0]
+    this.y = m.items[1][0]
+    this.z = m.items[2][0]
   }
 }
 

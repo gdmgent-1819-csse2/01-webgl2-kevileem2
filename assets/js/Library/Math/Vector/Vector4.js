@@ -1,3 +1,6 @@
+//imports
+import Matrix4 from '../Matrix/Matrix4.js'
+
 class Vector4
 {
   /**
@@ -22,7 +25,7 @@ class Vector4
    */
   norm()
   {
-    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2) + Math.pow(this.w, 2))
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2))
   }
 
   /**
@@ -35,7 +38,7 @@ class Vector4
     const newX = this.x / this.norm()
     const newY = this.y / this.norm()
     const newZ = this.z / this.norm()
-    const newW = this.w / this.norm()
+    const newW = this.w
     return new Vector4(newX, newY,newZ,newW)
   }
 
@@ -49,7 +52,6 @@ class Vector4
     this.x += v.x
     this.y += v.y
     this.z += v.z
-    this.w += v.w
   }
 
   /**
@@ -62,7 +64,6 @@ class Vector4
     this.x -= v.x
     this.y -= v.y
     this.z -= v.z
-    this.w -= v.w
   }
 
   /**
@@ -75,7 +76,6 @@ class Vector4
     this.x *= a
     this.y *= a
     this.z *= a
-    this.w *= a
   }
 
   /**
@@ -86,7 +86,7 @@ class Vector4
    */
   dot(v)
   {
-    return (this.x * v.x) + (this.y * v.y) + (this.z * v.z) + (this.w * v.w)
+    return (this.x * v.x) + (this.y * v.y) + (this.z * v.z)
   }
 
   /**
@@ -100,6 +100,24 @@ class Vector4
     const numerator = this.dot(v);
     const denominator = this.norm() * v.norm()
     return Math.acos(numerator / denominator)
+  }
+
+  /**
+   * Rotate vector around origin
+   * @param {Number} α - Anticlockwise angle (degrees)
+   */
+  rot(α) {
+    const m = new Matrix4([
+      [this.x, 0, 0, 0],
+      [this.y, 0, 0, 0],
+      [this.z, 0, 0, 0],
+      [this.w, 0, 0, 0],
+    ])
+    m.rot(α)
+    this.x = m.items[0][0]
+    this.y = m.items[1][0]
+    this.z = m.items[2][0]
+    this.w = m.items[3][0]
   }
 }
 

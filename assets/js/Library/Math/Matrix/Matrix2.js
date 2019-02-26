@@ -1,5 +1,10 @@
 class Matrix2
 {
+  /**
+   * constructor for 2x2 matrix
+   * 
+   * @param {Array} items 
+   */
   constructor(items)
   {
     this.items = items || [
@@ -61,14 +66,61 @@ class Matrix2
 
   /**
    * Identity Matrix
+   * 
+   * @returns {Function}
    */
   identity()
   {
-    const c = [
-      [1,0],
-      [0,1]
-    ]
+    const c = {
+      items: [[1,0],[0,1]]
+    }
     return this.mul(c)
+  }
+
+  /**
+   * Inverse Matrix
+   */
+  inverse()
+  {
+    const a = this.items
+    const det = 1 / ((a[0][0] * a[1][1]) - (a[0][1] * a[1][0]))
+    if(det !== 0){
+      this.items = [
+        [det * a[1][1], det * -(a[0][1])],
+        [det * -(a[1][0]), det * a[0][0]]
+      ]
+    } else {
+      console.log('This matrix is a "Singular" and has in addition no inverse.')
+    }
+  }
+
+  /**
+   * Transposed Matrix
+   */
+  transposed()
+  {
+    const a = this.items
+    this.items = [
+      [a[0][0], a[1][0]],
+      [a[0][1], a[1][1]]
+    ]
+  }
+
+  /**
+   * Rotate the matrix around the origin.
+   * @param {Number} α - The anticlockwise angle in degrees.
+   */
+  rot(α) {
+    α *= Math.PI / 180
+    const cos = Math.cos(α)
+    const sin = Math.sin(α)
+    const a = this.elements
+    const r = [
+        [cos, -sin],
+        [sin, cos]
+    ]
+    this.elements = r
+    this.mul(a);
   }
 }
 

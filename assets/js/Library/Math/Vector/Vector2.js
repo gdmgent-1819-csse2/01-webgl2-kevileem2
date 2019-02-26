@@ -1,3 +1,6 @@
+//imports
+import Matrix2 from '../Matrix/Matrix2.js'
+
 class Vector2 
 {
   /**
@@ -88,6 +91,17 @@ class Vector2
     const numerator = this.dot(v);
     const denominator = this.norm() * v.norm()
     return Math.acos(numerator / denominator)
+  }
+
+  /**
+   * Rotate the vector around the origin.
+   * @param {Number} α - The anticlockwise angle in degrees.
+   */
+  rot(α) {
+    const m = new Matrix2([[this.x, 0],[this.y, 0]])
+    m.rot(α)
+    this.x = m.elements[0][0]
+    this.y = m.elements[1][0]
   }
 }
 

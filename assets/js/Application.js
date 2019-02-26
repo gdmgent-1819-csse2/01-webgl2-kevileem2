@@ -3,45 +3,57 @@ import Vector2_test from './Test/Vector/Vector2_test.js'
 import Vector3_test from './Test/Vector/Vector3_test.js'
 import Vector4_test from './Test/Vector/Vector4_test.js'
 import Matrix2_test from './Test/Matrix/Matrix2_test.js'
+import Matrix3_test from './Test/Matrix/Matrix3_test.js'
+import Matrix4_test from './Test/Matrix/Matrix4_test.js'
 
 class Application
 {
   constructor()
   {
-    console.info('WebGL2 Demo')
-    let test = prompt(
-      'What would you like to test? \n' +
-      'press "0" for all class test \n' +
-      'press "1" for Vector 2D class test \n' +
-      'press "2" for Vector 3D class test \n' +
-      'press "3" for Vector 4D class test \n' +
-      'press "4" for Matrix 2x2 class test \n' +
-      'press "5" for Matrix 3x3 class test \n' +
-      'press "6" for Matrix 4x4 class test \n'
-  )
-    switch(test)
-    {
-      case('0'):
-        new Vector2_test
-        new Vector3_test
-        new Vector4_test
-        new Matrix2_test
-        break
-      case('1'):
-        new Vector2_test
-        break
-      case('2'):
-        new Vector3_test
-        break
-      case('3'):
-        new Vector4_test
-        break
-      case('4'):
-        new Matrix2_test
-        break
-      default:
-        new Application
-    }
+    // All elements from the DOM
+    const allEl = document.getElementById('all')
+    const vector2El = document.getElementById('vector2')
+    const vector3El = document.getElementById('vector3')
+    const vector4El = document.getElementById('vector4')
+    const matrix2El = document.getElementById('matrix2')
+    const matrix3El = document.getElementById('matrix3')
+    const matrix4El = document.getElementById('matrix4')
+
+    /**
+     * Add event listeners for all the buttons
+     */
+    allEl.addEventListener('click', () => {
+      new Vector2_test
+      new Vector3_test
+      new Vector4_test
+      new Matrix2_test
+      new Matrix3_test
+      new Matrix4_test
+    })
+
+    vector2El.addEventListener('click', () => {
+      new Vector2_test
+    })
+
+    vector3El.addEventListener('click', () => {
+      new Vector3_test
+    })
+
+    vector4El.addEventListener('click', () => {
+      new Vector4_test
+    })
+
+    matrix2El.addEventListener('click', () => {
+      new Matrix2_test
+    })
+
+    matrix3El.addEventListener('click', () => {
+      new Matrix3_test
+    })
+
+    matrix4El.addEventListener('click', () => {
+      new Matrix4_test
+    })
   }
 }
 
