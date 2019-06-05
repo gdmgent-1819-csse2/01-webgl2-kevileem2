@@ -1,60 +1,42 @@
-//imports
-import Vector2_test from './Test/Vector/Vector2_test.js'
-import Vector3_test from './Test/Vector/Vector3_test.js'
-import Vector4_test from './Test/Vector/Vector4_test.js'
-import Matrix2_test from './Test/Matrix/Matrix2_test.js'
-import Matrix3_test from './Test/Matrix/Matrix3_test.js'
-import Matrix4_test from './Test/Matrix/Matrix4_test.js'
+import Canvas from './Library/Canvas.js'
+import Tests from './Tests/Tests.js'
 
-class Application
-{
-  constructor()
-  {
-    // All elements from the DOM
-    const allEl = document.getElementById('all')
-    const vector2El = document.getElementById('vector2')
-    const vector3El = document.getElementById('vector3')
-    const vector4El = document.getElementById('vector4')
-    const matrix2El = document.getElementById('matrix2')
-    const matrix3El = document.getElementById('matrix3')
-    const matrix4El = document.getElementById('matrix4')
-
+/** Class for the application. */
+export default class Application {
     /**
-     * Add event listeners for all the buttons
+     * Create a new application.
      */
-    allEl.addEventListener('click', () => {
-      new Vector2_test
-      new Vector3_test
-      new Vector4_test
-      new Matrix2_test
-      new Matrix3_test
-      new Matrix4_test
-    })
+    constructor() {
+        const tests = false
+        if (tests) {
+            new Tests()
+        }
+        console.info('WebGL2 Demo')
 
-    vector2El.addEventListener('click', () => {
-      new Vector2_test
-    })
+        this.shaderSources = {
+            fragment: null,
+            vertex: null,
+        }
+        this.preloader()
+    }
 
-    vector3El.addEventListener('click', () => {
-      new Vector3_test
-    })
+    async preloader() {
+        console.info('Preloading source code for shaders')
+        await fetch('./assets/glsl/vertex-shader.glsl')
+            .then(response => response.text())
+            .then(source => this.shaderSources.vertex = source)
+            .catch(error => console.error(error.message))
+        await fetch('./assets/glsl/fragment-shader.glsl')
+            .then(response => response.text())
+            .then(source => this.shaderSources.fragment = source)
+            .catch(error => console.error(error.message))
+        this.run()
+    }
 
-    vector4El.addEventListener('click', () => {
-      new Vector4_test
-    })
+    run() {
+        const width = 600
+        const height = 480
 
-    matrix2El.addEventListener('click', () => {
-      new Matrix2_test
-    })
-
-    matrix3El.addEventListener('click', () => {
-      new Matrix3_test
-    })
-
-    matrix4El.addEventListener('click', () => {
-      new Matrix4_test
-    })
-  }
+        new Canvas(width, height, this.shaderSources)
+    }
 }
-
-export default Application

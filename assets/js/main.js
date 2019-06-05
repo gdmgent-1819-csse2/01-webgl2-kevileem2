@@ -1,5 +1,3 @@
-import Application from './Application.js '
+import Application from './Application.js'
 
-window.addEventListener(
-  'DOMContentLoaded', _ => new Application(), false
-)
+window.addEventListener('DOMContentLoaded', _ => new Application(), false)
