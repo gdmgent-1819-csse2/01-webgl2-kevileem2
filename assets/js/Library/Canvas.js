@@ -16,11 +16,12 @@ export default class Canvas {
             red: [255, 0, 0, 0],
             white: [255, 255, 255, 0],
             yellow: [255, 255, 0, 0],
+            orange: [255, 165, 0, 0],
+            bordeaux: [95, 2, 31, 0],
         }
         this.data = {
             colors: [],
             positions: [],
-            hands: []
         }
 
         this.gl = null
@@ -30,7 +31,6 @@ export default class Canvas {
 
         //Event handler that updates every second
         window.addEventListener('updateCanvas', event => {
-            
             setInterval(() => {
                 this.updateCanvasHandler(event)
             }, 1000)
@@ -50,20 +50,85 @@ export default class Canvas {
         this.data.positions.push(v.x, v.y)
         this.data.colors.push(...this.colors.red)
 
-        const colors = [
-            'green',
-            'blue',
-            'cyan',
-            'magenta',
-            'yellow',
-        ]
-
-        colors.forEach(color => {
-            v.rot(45)
+        for(let i = 0; i < 12; i++){
+            v.rot(30)
             this.data.positions.push(v.x, v.y)
-            this.data.colors.push(...this.colors[color])
-        });
+            this.data.colors.push(...this.colors["yellow"])
+        }
 
+        {
+            //calculate angle
+            let dateTime, hours, minutes, seconds
+            dateTime = new Date
+            hours = 30 * ((dateTime.getHours() % 12) + dateTime.getMinutes() / 60)
+            minutes = 6 * dateTime.getMinutes()
+            seconds = 6 * dateTime.getSeconds()
+    
+            console.log(hours, minutes, seconds)
+
+            //hour hand
+            const hourHand1 = new Vector2(0, 0.3)
+            const hourHand2 = new Vector2(0, 0.2)
+            const hourHand3 = new Vector2(0, 0.1)
+            const r1 = Math.round(Math.random() * 255)
+            const g1 = Math.round(Math.random() * 255)
+            const b1 = Math.round(Math.random() * 255)
+            hourHand1.rot(-hours)
+            this.data.positions.push(hourHand1.x, hourHand1.y)
+            this.data.colors.push(r1, g1, b1, 0)
+            hourHand2.rot(-hours)
+            this.data.positions.push(hourHand2.x, hourHand2.y)
+            this.data.colors.push(r1, g1, b1, 0)
+            hourHand3.rot(-hours)
+            this.data.positions.push(hourHand3.x, hourHand3.y)
+            this.data.colors.push(r1, g1, b1, 0)
+    
+            //minute hand
+            const minuteHand1 = new Vector2(0, 0.4)
+            const minuteHand2 = new Vector2(0, 0.3)
+            const minuteHand3 = new Vector2(0, 0.2)
+            const minuteHand4 = new Vector2(0, 0.1)
+            const r2 = Math.round(Math.random() * 255)
+            const g2 = Math.round(Math.random() * 255)
+            const b2 = Math.round(Math.random() * 255)
+            minuteHand1.rot(-minutes)
+            this.data.positions.push(minuteHand1.x, minuteHand1.y)
+            this.data.colors.push(r2, g2, b2, 0)
+            minuteHand2.rot(-minutes)
+            this.data.positions.push(minuteHand2.x, minuteHand2.y)
+            this.data.colors.push(r2, g2, b2, 0)
+            minuteHand3.rot(-minutes)
+            this.data.positions.push(minuteHand3.x, minuteHand3.y)
+            this.data.colors.push(r2, g2, b2, 0)
+            minuteHand4.rot(-minutes)
+            this.data.positions.push(minuteHand4.x, minuteHand4.y)
+            this.data.colors.push(r2, g2, b2, 0)
+    
+            //second hand
+            let secondHand1 = new Vector2(0, 0.5)
+            let secondHand2 = new Vector2(0, 0.4)
+            let secondHand3 = new Vector2(0, 0.3)
+            let secondHand4 = new Vector2(0, 0.2)
+            let secondHand5 = new Vector2(0, 0.1)
+            const r3 = Math.round(Math.random() * 255)
+            const g3 = Math.round(Math.random() * 255)
+            const b3 = Math.round(Math.random() * 255)
+            secondHand1.rot(-seconds)
+            this.data.positions.push(secondHand1.x, secondHand1.y)
+            this.data.colors.push(r3, g3, b3, 0)
+            secondHand2.rot(-seconds)
+            this.data.positions.push(secondHand2.x, secondHand2.y)
+            this.data.colors.push(r3, g3, b3, 0)
+            secondHand3.rot(-seconds)
+            this.data.positions.push(secondHand3.x, secondHand3.y)
+            this.data.colors.push(r3, g3, b3, 0)
+            secondHand4.rot(-seconds)
+            this.data.positions.push(secondHand4.x, secondHand4.y)
+            this.data.colors.push(r3, g3, b3, 0)
+            secondHand5.rot(-seconds)
+            this.data.positions.push(secondHand5.x, secondHand5.y)
+            this.data.colors.push(r3, g3, b3, 0)
+        }
         this.drawScene()
     }
 
