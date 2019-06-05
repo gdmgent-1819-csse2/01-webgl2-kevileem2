@@ -20,14 +20,20 @@ export default class Canvas {
         this.data = {
             colors: [],
             positions: [],
+            hands: []
         }
 
         this.gl = null
         this.program = null
         this.run()
 
+
+        //Event handler that updates every second
         window.addEventListener('updateCanvas', event => {
-            this.updateCanvasHandler(event)
+            
+            setInterval(() => {
+                this.updateCanvasHandler(event)
+            }, 1000)
         }, false);
 
     }
